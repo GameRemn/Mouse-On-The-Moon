@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileWithWalls : Tile
+public class TileWithWalls : Tile, IMiteorTrigger
 {
     private bool isFull = true;
 
@@ -71,5 +71,12 @@ public class TileWithWalls : Tile
                 }
             }
         }
+    }
+
+    public void OnMetiorTrigger()
+    {
+        cell.gameObject.SetActive(true);
+        IsFull = false;
+        gameObject.SetActive(false);
     }
 }

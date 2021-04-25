@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IMiteorTrigger
 {
     public Cell cellPosition;
     public PlayerStatus playerStatus;
@@ -123,6 +123,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(digTime);
         tile.IsFull = false;
         PlayerStatus = PlayerStatus.Standing;
+    }
+
+    public void OnMetiorTrigger()
+    {
+        //конец игры
     }
 }
 
