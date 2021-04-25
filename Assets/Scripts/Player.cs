@@ -21,16 +21,14 @@ public class Player : MonoBehaviour
                         (TileWithWalls) TileGridManager.Instance.cellGrid
                             .cells[
                                 TileGridManager.Instance.cellGrid.OddrCoordinatesInIndex(
-                                    cellPosition.positionInOddrCoordinates + Vector3Int.down)].tile;
+                                    cellPosition.positionInOddrCoordinates + Vector3Int.down * TileGridManager.Instance.cellGrid.axisDirection)].tile;
                     if (downTile != null && !downTile.IsFull)
                     {
                         StartCoroutine(FallCoroutine(cellPosition, downTile.Cell));
-                    }
-                    else
-                    {
-                        playerStatus = value;
+                        return;
                     }
                 }
+                playerStatus = value;
             }
         }
     }
