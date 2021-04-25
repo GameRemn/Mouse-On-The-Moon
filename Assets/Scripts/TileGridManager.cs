@@ -12,7 +12,6 @@ public class TileGridManager : MonoSingleton<TileGridManager>
     {
         cellGrid.CreateCellGrid();
         tileGrid.CreateTileGrid(cellGrid.cells);
-        player.cellPosition = cellGrid.cells[0];
-        player.transform.position = player.cellPosition.transform.position;
+        player.SetPlayerCell(cellGrid.cells[cellGrid.numberOfColumnsRowsLayers.x/2]);
     }
 }

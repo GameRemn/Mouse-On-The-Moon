@@ -74,7 +74,7 @@ public class CellGrid : MonoBehaviour
         foreach (var neighbordCellIndexOffset in neighbordCellsIndexesOffset)
         {
             var neighdordCellIndex =
-                OddrCoordinatesInIndex(cell.positionInOddrCoordinates + neighbordCellIndexOffset);
+                OddrCoordinatesInIndex(cell.positionInOddrCoordinates + neighbordCellIndexOffset * axisDirection);
             if (neighdordCellIndex != -1)
             {
                 rez.Add(cells[neighdordCellIndex]);

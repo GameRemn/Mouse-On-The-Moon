@@ -7,7 +7,7 @@ using UnityEngine;
 public class TileGrid : MonoBehaviour
 {
     public CellGrid cellGrid;
-    public Tile tilePrefab;
+    public TileGenerator tileGenerator;
     public List<Tile> tiles;
 
     public virtual void CreateTileGrid(List<Cell> cells)
@@ -21,16 +21,7 @@ public class TileGrid : MonoBehaviour
             }
 
             var position = tilesCell.transform.localPosition;
-            Tile newTile;
-            if (tilePrefab)
-            {
-                newTile = Instantiate(tilePrefab, transform, false);
-                newTile.transform.localPosition = position;
-            }
-            else
-            {
-                newTile = CreateTile(position);
-            }
+            Tile newTile = tileGenerator.GetTile(position);
 
             newTile.Cell = tilesCell;
             tiles.Add(newTile);
@@ -41,6 +32,15 @@ public class TileGrid : MonoBehaviour
     {
         var newTileGameObject = new GameObject("Tile");
         var newTile = newTileGameObject.AddComponent<Tile>();
+        newTileGameObject.transform.SetParent(transform, false);
+        newTileGameObject.transform.localPosition = position;
+        return newTile;
+    }
+
+    public T CreateTile<T>(Vector3 position) where T : Tile
+    {
+        var newTileGameObject = new GameObject("Tile");
+        var newTile = newTileGameObject.AddComponent<T>();
         newTileGameObject.transform.SetParent(transform, false);
         newTileGameObject.transform.localPosition = position;
         return newTile;
@@ -66,25 +66,27 @@ public class TileGrid : MonoBehaviour
         }
         Destroy(tile.gameObject);
     }
+    
+    //public Tile NeighbordTile(Cell cell, Vector3Int neighbordCellsIndexesOffset)
 
-    public List<Tile> NeighbordTiles(Cell cell, List<Vector3Int> neighbordCellsIndexesOffset)
+    public List<Tile> NeighbordTiles(Cell cell, List<Vector3Int> neighbordTilesIndexesOffset)
     {
         List<Tile> neighbordTiles = new List<Tile>();
-        var neighbordCells = cellGrid.NeighbordCells(cell, neighbordCellsIndexesOffset);
+        var neighbordCells = cellGrid.NeighbordCells(cell, neighbordTilesIndexesOffset);
         foreach (var neighboringCell in neighbordCells)
         {
             if (neighboringCell.tile != null)
             {
-                neighbordTiles.Add(cell.tile);
+                neighbordTiles.Add(neighboringCell.tile);
             }
         }
 
         return neighbordTiles;
     }
 
-    public List<Tile> NeighbordTiles(Tile tile, List<Vector3Int> neighbordCellsIndexesOffset)
+    public List<Tile> NeighbordTiles(Tile tile, List<Vector3Int> neighbordTilesIndexesOffset)
     {
-        return NeighbordTiles(tile.Cell, neighbordCellsIndexesOffset);
+        return NeighbordTiles(tile.Cell, neighbordTilesIndexesOffset);
     }
 
     public List<Tile> ExtremeTiles(List<Tile> tiles, List<Vector3Int> neighbordCellsIndexesOffset, int countNeighbordTiles)

@@ -305,7 +305,7 @@ MonoBehaviour:
   cellPosition: {fileID: 0}
   playerStatus: 0
   moveSpeed: 5
-  digSpeed: 0
+  digTime: 2
   moveCurve:
     serializedVersion: 2
     m_Curve:
@@ -349,6 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520399447}
   - component: {fileID: 1520399448}
+  - component: {fileID: 1520399449}
   m_Layer: 0
   m_Name: TileGrid
   m_TagString: Untagged
@@ -383,8 +384,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellGrid: {fileID: 2052025153}
-  tilePrefab: {fileID: 2603799781041559112, guid: bbedf69b293254e47aab3d9d3ab22c2f, type: 3}
+  tileGenerator: {fileID: 1520399449}
   tiles: []
+--- !u!114 &1520399449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520399446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff368af592597c544bdd6724d3df772c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 5274162360424327572, guid: bbedf69b293254e47aab3d9d3ab22c2f, type: 3}
 --- !u!1 &1622115151
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,5 +493,5 @@ MonoBehaviour:
   cellPrefab: {fileID: 6781560740109865594, guid: 949e104145e53d544bca731a36ad245f, type: 3}
   numberOfColumnsRowsLayers: {x: 10, y: 10, z: 1}
   lengthWidthHeight: {x: 10, y: 10, z: 10}
-  axisDirection: {x: 1, y: 1, z: 1}
+  axisDirection: {x: 1, y: -1, z: 1}
   cells: []

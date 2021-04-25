@@ -7,9 +7,39 @@ public class Player : MonoBehaviour
 {
     public Cell cellPosition;
     public PlayerStatus playerStatus;
+
+    public PlayerStatus PlayerStatus
+    {
+        get => playerStatus;
+        set
+        {
+            if (value != playerStatus)
+            {
+                if (value == PlayerStatus.Standing)
+                {
+                    var downTile =
+                        (TileWithWalls) TileGridManager.Instance.cellGrid
+                            .cells[
+                                TileGridManager.Instance.cellGrid.OddrCoordinatesInIndex(
+                                    cellPosition.positionInOddrCoordinates + Vector3Int.down)].tile;
+                    if (downTile != null && !downTile.IsFull)
+                    {
+                        StartCoroutine(FallCoroutine(cellPosition, downTile.Cell));
+                    }
+                    else
+                    {
+                        playerStatus = value;
+                    }
+                }
+            }
+        }
+    }
+
     public float moveSpeed;
-    public float digSpeed;
     public AnimationCurve moveCurve;
+    public float fallSpeed;
+    public AnimationCurve fallCurve;
+    public float digTime;
 
     private void Update()
     {
@@ -17,52 +47,84 @@ public class Player : MonoBehaviour
         {
             if (Input.GetAxis("Horizontal") == 1)
             {
-                Move(Vector2Int.right);
+                CheckAction(Vector2Int.right);
             }
             else if (Input.GetAxis("Horizontal") == -1)
             {
-                Move(Vector2Int.left);
-            }
-            else if (Input.GetAxis("Vertical") == 1)
-            {
-                Move(Vector2Int.up);
+                CheckAction(Vector2Int.left);
             }
             else if (Input.GetAxis("Vertical") == -1)
             {
-                Move(Vector2Int.down);
+                CheckAction(Vector2Int.up);
+            }
+            else if (Input.GetAxis("Vertical") == 1)
+            {
+                CheckAction(Vector2Int.down);
             }
         }
     }
 
-    public void Move(Vector2Int moveDirection)
+    public void SetPlayerCell(Cell cell)
+    {
+        cellPosition = cell;
+        transform.position = cellPosition.transform.position;
+        ((TileWithWalls) cellPosition.tile).IsFull = false;
+    }
+
+    public void CheckAction(Vector2Int direction)
     {
         var nextCellIndex = TileGridManager.Instance.cellGrid.OddrCoordinatesInIndex(new Vector3Int(
-            cellPosition.positionInOddrCoordinates.x + moveDirection.x,
-            cellPosition.positionInOddrCoordinates.y + moveDirection.y, 0));
+            cellPosition.positionInOddrCoordinates.x + direction.x,
+            cellPosition.positionInOddrCoordinates.y + direction.y, 0));
         if (nextCellIndex != -1)
         {
-            var nextCell = TileGridManager.Instance.cellGrid.cells[nextCellIndex];
-            StartCoroutine(MoveCoroutine(cellPosition, nextCell));
+            var nextTile = (TileWithWalls)TileGridManager.Instance.cellGrid.cells[nextCellIndex].tile;
+            if (nextTile != null)
+            {
+                if (!nextTile.IsFull)
+                {
+                    StartCoroutine(MoveCoroutine(cellPosition, nextTile.Cell));
+                }
+                else
+                {
+                    StartCoroutine(DigCoroutine(nextTile));
+                }
+            }
         }
     }
-    
+
     IEnumerator MoveCoroutine(Cell _last_position, Cell _next_position)
     {
-        playerStatus = PlayerStatus.Move;
+        PlayerStatus = PlayerStatus.Move;
         for(float i = 0; i < 1; i += Time.deltaTime * moveSpeed)
         {
             transform.position = Vector3.LerpUnclamped(_last_position.transform.position, _next_position.transform.position, moveCurve.Evaluate(i));
             yield return null;
         }
         cellPosition = _next_position;
-        playerStatus = PlayerStatus.Standing;
+        transform.position = cellPosition.transform.position;
+        PlayerStatus = PlayerStatus.Standing;
+    }
+    
+    IEnumerator FallCoroutine(Cell _last_position, Cell _next_position)
+    {
+        PlayerStatus = PlayerStatus.Fall;
+        for(float i = 0; i < 1; i += Time.deltaTime * fallSpeed)
+        {
+            transform.position = Vector3.LerpUnclamped(_last_position.transform.position, _next_position.transform.position, fallCurve.Evaluate(i));
+            yield return null;
+        }
+        cellPosition = _next_position;
+        transform.position = cellPosition.transform.position;
+        PlayerStatus = PlayerStatus.Standing;
     }
 
-    IEnumerator DigCoroutine()
+    IEnumerator DigCoroutine(TileWithWalls tile)
     {
-        playerStatus = PlayerStatus.Dig;
-        yield return new WaitForSeconds(digSpeed);
-        playerStatus = PlayerStatus.Standing;
+        PlayerStatus = PlayerStatus.Dig;
+        yield return new WaitForSeconds(digTime);
+        tile.IsFull = false;
+        PlayerStatus = PlayerStatus.Standing;
     }
 }
 
@@ -70,5 +132,6 @@ public enum PlayerStatus
 {
     Standing,
     Move,
-    Dig
+    Dig,
+    Fall
 }

@@ -7,8 +7,15 @@ public static class NeighbordCellsIndexesOffset
     public static List<Vector3Int> XZCross = new List<Vector3Int>()
     {
         new Vector3Int(0, 0, 1),
-        new Vector3Int(-1, 0,0),
+        new Vector3Int(1, 0,0),
         new Vector3Int(0, 0, -1),
-        new Vector3Int(1,0,0)
+        new Vector3Int(-1,0,0)
+    };
+    public static List<Vector3Int> XYCross = new List<Vector3Int>()
+    {
+        new Vector3Int(0, 1, 0),
+        new Vector3Int(1, 0,0),
+        new Vector3Int(0, -1, 0),
+        new Vector3Int(-1,0,0)
     };
 }
