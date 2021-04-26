@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IMiteorTrigger
 {
-    public void OnMetiorTrigger();
+    public bool OnMetiorTrigger();
 }

@@ -38,6 +38,7 @@ public class Player : MonoBehaviour, IMiteorTrigger
     public float fallSpeed;
     public AnimationCurve fallCurve;
     public float digTime;
+    public bool canDigSolidTiles = false;
 
     private void Update()
     {
@@ -83,7 +84,7 @@ public class Player : MonoBehaviour, IMiteorTrigger
                 {
                     StartCoroutine(MoveCoroutine(cellPosition, nextTile.Cell));
                 }
-                else
+                else if (!nextTile.isSolid || nextTile.isSolid && canDigSolidTiles)
                 {
                     StartCoroutine(DigCoroutine(nextTile));
                 }
@@ -96,7 +97,8 @@ public class Player : MonoBehaviour, IMiteorTrigger
         PlayerStatus = PlayerStatus.Move;
         for(float i = 0; i < 1; i += Time.deltaTime * moveSpeed)
         {
-            transform.position = Vector3.LerpUnclamped(_last_position.transform.position, _next_position.transform.position, moveCurve.Evaluate(i));
+            transform.position = Vector3.LerpUnclamped(_last_position.transform.position,
+                _next_position.transform.position, moveCurve.Evaluate(i));
             yield return null;
         }
         cellPosition = _next_position;
@@ -109,7 +111,8 @@ public class Player : MonoBehaviour, IMiteorTrigger
         PlayerStatus = PlayerStatus.Fall;
         for(float i = 0; i < 1; i += Time.deltaTime * fallSpeed)
         {
-            transform.position = Vector3.LerpUnclamped(_last_position.transform.position, _next_position.transform.position, fallCurve.Evaluate(i));
+            transform.position = Vector3.LerpUnclamped(_last_position.transform.position,
+                _next_position.transform.position, fallCurve.Evaluate(i));
             yield return null;
         }
         cellPosition = _next_position;
@@ -125,10 +128,11 @@ public class Player : MonoBehaviour, IMiteorTrigger
         PlayerStatus = PlayerStatus.Standing;
     }
 
-    public void OnMetiorTrigger()
+    public bool OnMetiorTrigger()
     {
         Debug.LogError("Ты умер");
         //конец игры
+        return true;
     }
 }
 

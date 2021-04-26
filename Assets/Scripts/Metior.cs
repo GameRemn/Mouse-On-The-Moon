@@ -21,8 +21,8 @@ public class Metior : MonoBehaviour
         var otherTrigger = other.gameObject.GetComponent<IMiteorTrigger>();
         if (otherTrigger != null)
         {
-            otherTrigger.OnMetiorTrigger();
-            numberDestroyObjects++;
+            if(otherTrigger.OnMetiorTrigger())
+                numberDestroyObjects++;
             if(numberDestroyObjects>= maxDestroyObjects)
                 Destroy(gameObject);
         }

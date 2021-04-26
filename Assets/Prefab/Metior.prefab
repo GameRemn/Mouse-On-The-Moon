@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 8144867431695837427}
   - component: {fileID: 8144867431695837425}
   - component: {fileID: 8144867431695837430}
+  - component: {fileID: 5549579153094398502}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Metior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 1067630576316043097, guid: 14caf5e9029f06a4fb992eb0f1d95c13, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +101,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!114 &8144867431695837425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b533be4aa05ff42bc14d1950ac1b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.5
+  moveSpeed: 0.05
   numberDestroyObjects: 0
   maxDestroyObjects: 3
   moveCurve:
@@ -140,7 +141,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lastPosition: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: -100, z: 0}
 --- !u!50 &8144867431695837430
 Rigidbody2D:
   serializedVersion: 4
@@ -162,3 +163,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5549579153094398502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144867431695837424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aebddf40c7af79469aae4144336c9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: -4492972736964186471, guid: 14caf5e9029f06a4fb992eb0f1d95c13, type: 3}
+  - {fileID: 1067630576316043097, guid: 14caf5e9029f06a4fb992eb0f1d95c13, type: 3}
+  - {fileID: -1030213949201160418, guid: 14caf5e9029f06a4fb992eb0f1d95c13, type: 3}
+  - {fileID: 1380639849599573162, guid: 14caf5e9029f06a4fb992eb0f1d95c13, type: 3}

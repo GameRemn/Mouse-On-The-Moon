@@ -5,7 +5,6 @@ using UnityEngine;
 public class TileWithWalls : Tile, IMiteorTrigger
 {
     private bool isFull = true;
-
     public bool IsFull
     {
         get => isFull;
@@ -20,6 +19,7 @@ public class TileWithWalls : Tile, IMiteorTrigger
         }
     }
 
+    public bool isSolid;
     public Sprite backSprite;
     public SpriteRenderer topWall, rightWall, downWall, leftWall;
     public List<TileWithWalls> neighbordTilesWithWalls;
@@ -30,7 +30,6 @@ public class TileWithWalls : Tile, IMiteorTrigger
         {
             if (neighbordTilesWithWalls.Count == 0)
             {
-                Debug.Log("add NeighbordTiles");
                 var neighbordTiles =
                     TileGridManager.Instance.tileGrid.NeighbordTiles(cell, NeighbordCellsIndexesOffset.XYCross);
                 foreach (var neighbordTile in neighbordTiles)
@@ -73,10 +72,21 @@ public class TileWithWalls : Tile, IMiteorTrigger
         }
     }
 
-    public void OnMetiorTrigger()
+    public bool OnMetiorTrigger()
     {
-        cell.gameObject.SetActive(false);
-        IsFull = false;
-        gameObject.SetActive(false);
+        if (IsFull)
+        {
+            IsFull = false;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+            enabled = false;
+            return true;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            enabled = false;
+            return false;
+        }
     }
 }
