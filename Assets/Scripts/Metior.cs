@@ -13,7 +13,7 @@ public class Metior : MonoBehaviour
 
     private void OnEnable()
     {
-        //StartCoroutine(MoveCoroutine(transform.position,lastPosition));
+        StartCoroutine(MoveCoroutine(transform.position,new Vector3(transform.position.x, lastPosition.y, transform.position.z)));
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -35,6 +35,6 @@ public class Metior : MonoBehaviour
             transform.position = Vector3.LerpUnclamped(_last_position, _next_position, moveCurve.Evaluate(i));
             yield return null;
         }
-        transform.position = _next_position;
+        Destroy(gameObject);
     }
 }
