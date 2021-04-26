@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 78012751}
   - component: {fileID: 78012750}
   m_Layer: 0
-  m_Name: Metiors Genirator
+  m_Name: Metiors Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78012749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -391,6 +391,7 @@ Transform:
   m_Children:
   - {fileID: 2052025152}
   - {fileID: 1520399447}
+  - {fileID: 1055724393}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -408,6 +409,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellGrid: {fileID: 2052025153}
   tileGrid: {fileID: 1520399448}
+  itemGenerator: {fileID: 1055724394}
+  solidTiles: []
+  softTiles: []
   player: {fileID: 997561170}
 --- !u!1 &2052025151
 GameObject:
@@ -453,7 +457,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 6781560740109865594, guid: 949e104145e53d544bca731a36ad245f, type: 3}
-  numberOfColumnsRowsLayers: {x: 10, y: 10, z: 1}
-  lengthWidthHeight: {x: 10, y: 10, z: 10}
+  numberOfColumnsRowsLayers: {x: 10, y: 20, z: 1}
+  lengthWidthHeight: {x: 10, y: 20, z: 10}
   axisDirection: {x: 1, y: -1, z: 1}
   cells: []
+--- !u!1 &2082592495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2082592497}
+  - component: {fileID: 2082592496}
+  m_Layer: 0
+  m_Name: ItemGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2082592496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082592495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d115e8a8ff355fc4b981db3fc989b3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemsCounts: []
+  winItemPrefab: {fileID: 0}
+--- !u!4 &2082592497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082592495}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.2372966, y: 0.33771163, z: -10.347282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

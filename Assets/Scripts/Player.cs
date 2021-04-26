@@ -85,7 +85,7 @@ public class Player : MonoBehaviour, IMiteorTrigger
                 {
                     StartCoroutine(MoveCoroutine(cellPosition, nextTile.Cell));
                 }
-                else if (!nextTile.isSolid || nextTile.isSolid && canDigSolidTiles)
+                else if (!nextTile.isHard || nextTile.isHard && canDigSolidTiles)
                 {
                     StartCoroutine(DigCoroutine(nextTile));
                 }

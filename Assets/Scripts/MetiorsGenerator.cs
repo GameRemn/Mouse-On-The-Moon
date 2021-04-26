@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class MetiorsGenirator : MonoBehaviour
+public class MetiorsGenerator : MonoBehaviour
 {
     public List<Metior> metiorPrefabs;
     public float minXPosition, maxXPosition;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TileWithWalls : Tile, IMiteorTrigger
 {
@@ -20,7 +21,7 @@ public class TileWithWalls : Tile, IMiteorTrigger
         }
     }
 
-    public bool isSolid;
+    [FormerlySerializedAs("isSolid")] public bool isHard;
     public Sprite backSprite;
     public SpriteRenderer topWall, rightWall, downWall, leftWall;
     public List<TileWithWalls> neighbordTilesWithWalls;
