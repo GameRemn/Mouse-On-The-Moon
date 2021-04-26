@@ -40,6 +40,23 @@ public class Player : MonoBehaviour, IMiteorTrigger
     public float digTime;
     public bool canDigSolidTiles = false;
     public Animator animator;
+    public bool onLeft = true;
+
+    public bool OnLeft
+    {
+        get => onLeft;
+        set
+        {
+            if (value != onLeft)
+            {
+                var localScale = transform.localScale;
+                localScale = new Vector3(-localScale.x, localScale.y,
+                    localScale.z);
+                transform.localScale = localScale;
+                onLeft = value;
+            }
+        }
+    }
 
     private void Update()
     {
@@ -47,10 +64,12 @@ public class Player : MonoBehaviour, IMiteorTrigger
         {
             if (Input.GetAxis("Horizontal") == 1)
             {
+                OnLeft = false;
                 CheckAction(Vector2Int.right);
             }
             else if (Input.GetAxis("Horizontal") == -1)
             {
+                OnLeft = true;
                 CheckAction(Vector2Int.left);
             }
             else if (Input.GetAxis("Vertical") == -1)
@@ -96,7 +115,15 @@ public class Player : MonoBehaviour, IMiteorTrigger
     IEnumerator MoveCoroutine(Cell _last_position, Cell _next_position)
     {
         PlayerStatus = PlayerStatus.Move;
-        for(float i = 0; i < 1; i += Time.deltaTime * moveSpeed)
+        if (Input.GetAxis("Vertical") != 0)
+        {
+            animator.SetInteger("State", 4);
+        }
+        else if(Input.GetAxis("Horizontal") != 0)
+        {
+            animator.SetInteger("State", 1);
+        }
+            for(float i = 0; i < 1; i += Time.deltaTime * moveSpeed)
         {
             transform.position = Vector3.LerpUnclamped(_last_position.transform.position,
                 _next_position.transform.position, moveCurve.Evaluate(i));
@@ -105,11 +132,13 @@ public class Player : MonoBehaviour, IMiteorTrigger
         cellPosition = _next_position;
         transform.position = cellPosition.transform.position;
         PlayerStatus = PlayerStatus.Standing;
+        animator.SetInteger("State", 0);
     }
     
     IEnumerator FallCoroutine(Cell _last_position, Cell _next_position)
     {
         PlayerStatus = PlayerStatus.Fall;
+        animator.SetInteger("State", 4);
         for(float i = 0; i < 1; i += Time.deltaTime * fallSpeed)
         {
             transform.position = Vector3.LerpUnclamped(_last_position.transform.position,
@@ -119,14 +148,24 @@ public class Player : MonoBehaviour, IMiteorTrigger
         cellPosition = _next_position;
         transform.position = cellPosition.transform.position;
         PlayerStatus = PlayerStatus.Standing;
+        animator.SetInteger("State", 0);
     }
 
     IEnumerator DigCoroutine(TileWithWalls tile)
     {
         PlayerStatus = PlayerStatus.Dig;
+        if (Input.GetAxis("Vertical") != 0)
+        {
+            animator.SetInteger("State", 3);
+        }
+        else if(Input.GetAxis("Horizontal") != 0)
+        {
+            animator.SetInteger("State", 2);
+        }
         yield return new WaitForSeconds(digTime);
         tile.IsFull = false;
         PlayerStatus = PlayerStatus.Standing;
+        animator.SetInteger("State", 0);
     }
 
     public bool OnMetiorTrigger()
@@ -134,6 +173,19 @@ public class Player : MonoBehaviour, IMiteorTrigger
         Debug.LogError("Ты умер");
         //конец игры
         return true;
+    }
+    
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        var otherTrigger = other.gameObject.GetComponent<IPlayerTrigger>();
+        if (otherTrigger != null)
+        {
+            if (otherTrigger.onPlayerTrigger())
+            {
+                
+            }
+                
+        }
     }
 }
 

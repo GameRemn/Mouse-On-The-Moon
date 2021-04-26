@@ -30,7 +30,7 @@ public class TileGridManager : MonoSingleton<TileGridManager>
                 softTiles.Add(tileWithWalls);
             }
         }
-        while (itemGenerator.ItemsCounts.Count <= 0)
+        while (itemGenerator.ItemsCounts.Count > 0)
         {
             var tile = softTiles[Random.Range(0, softTiles.Count)];
             itemGenerator.GetItem(tile.transform.position);
@@ -44,7 +44,6 @@ public class TileGridManager : MonoSingleton<TileGridManager>
         {
             lowerTilesList.Add(tile);
         }
-
         var specialTile = lowerTilesList[Random.Range(0, lowerTilesList.Count)];
         itemGenerator.GetItem(specialTile.transform.position, true);
     }
