@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb80b2284dc7b6e469d916adc89ebc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particlesPrefab: {fileID: 2435593157996584817, guid: d83fed8ff47674487ae4fd3104bcbd30, type: 3}
   isSolid: 0
   backSprite: {fileID: 513658357374812586, guid: a0868bb628cc4ab4d9e2673133f7c7df, type: 3}
   topWall: {fileID: 3826318223804921841}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileWithWalls : Tile, IMiteorTrigger
 {
+    public GameObject particlesPrefab;
     private bool isFull = true;
     public bool IsFull
     {
@@ -74,6 +75,7 @@ public class TileWithWalls : Tile, IMiteorTrigger
 
     public bool OnMetiorTrigger()
     {
+        StartCoroutine(ParticalSystemLife());
         if (IsFull)
         {
             IsFull = false;
@@ -88,5 +90,14 @@ public class TileWithWalls : Tile, IMiteorTrigger
             enabled = false;
             return false;
         }
+    }
+
+    public IEnumerator ParticalSystemLife()
+    {
+        var go = Instantiate(particlesPrefab, transform.position, transform.rotation);
+        var p = go.GetComponent<ParticleSystem>();
+        p.Play();
+        yield return new WaitForSeconds(1f);
+        Destroy(go);
     }
 }
