@@ -127,6 +127,7 @@ public class Player : MonoBehaviour, IMiteorTrigger
 
     public void OnMetiorTrigger()
     {
+        Debug.LogError("Ты умер");
         //конец игры
     }
 }

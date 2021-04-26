@@ -75,7 +75,7 @@ public class TileWithWalls : Tile, IMiteorTrigger
 
     public void OnMetiorTrigger()
     {
-        cell.gameObject.SetActive(true);
+        cell.gameObject.SetActive(false);
         IsFull = false;
         gameObject.SetActive(false);
     }
