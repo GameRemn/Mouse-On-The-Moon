@@ -39,6 +39,7 @@ public class Player : MonoBehaviour, IMiteorTrigger
     public AnimationCurve fallCurve;
     public float digTime;
     public bool canDigSolidTiles = false;
+    public Animator animator;
 
     private void Update()
     {
