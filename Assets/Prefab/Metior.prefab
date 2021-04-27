@@ -115,9 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b533be4aa05ff42bc14d1950ac1b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.05
+  moveSpeed: 0.1
   numberDestroyObjects: 0
-  maxDestroyObjects: 3
+  maxDestroyObjects: 5
   moveCurve:
     serializedVersion: 2
     m_Curve:
@@ -142,7 +142,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lastPosition: {x: 0, y: -100, z: 0}
+  lastPosition: {x: 0, y: -15, z: 0}
 --- !u!50 &8144867431695837430
 Rigidbody2D:
   serializedVersion: 4

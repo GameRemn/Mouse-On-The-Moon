@@ -99,10 +99,34 @@ MonoBehaviour:
   cellPosition: {fileID: 0}
   onMetiorTriggerEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1718054041262445134, guid: 55e5f2e63a8e43f4aa5b31cafa6ec901, type: 3}
+        m_TargetAssemblyTypeName: ScaneController, Assembly-CSharp
+        m_MethodName: ToScane
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlayerTriggerEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1718054041262445134, guid: 55e5f2e63a8e43f4aa5b31cafa6ec901, type: 3}
+        m_TargetAssemblyTypeName: ScaneController, Assembly-CSharp
+        m_MethodName: ToScane
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!61 &-5593143532258898725
 BoxCollider2D:
   m_ObjectHideFlags: 0

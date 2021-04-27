@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IMiteorTrigger
 {
@@ -17,15 +16,19 @@ public class Player : MonoBehaviour, IMiteorTrigger
             {
                 if (value == PlayerStatus.Standing)
                 {
-                    var downTile =
-                        (TileWithWalls) TileGridManager.Instance.cellGrid
-                            .cells[
-                                TileGridManager.Instance.cellGrid.OddrCoordinatesInIndex(
-                                    cellPosition.positionInOddrCoordinates + Vector3Int.down * TileGridManager.Instance.cellGrid.axisDirection)].tile;
-                    if (downTile != null && !downTile.IsFull)
+                    var downTileIndex = TileGridManager.Instance.cellGrid.OddrCoordinatesInIndex(
+                        cellPosition.positionInOddrCoordinates +
+                        Vector3Int.down * TileGridManager.Instance.cellGrid.axisDirection);
+                    if (downTileIndex != -1)
                     {
-                        StartCoroutine(FallCoroutine(cellPosition, downTile.Cell));
-                        return;
+                        var downTile = (TileWithWalls) TileGridManager.Instance.cellGrid.cells[downTileIndex].tile;
+
+
+                        if (downTile != null && !downTile.IsFull)
+                        {
+                            StartCoroutine(FallCoroutine(cellPosition, downTile.Cell));
+                            return;
+                        }
                     }
                 }
                 playerStatus = value;
@@ -41,6 +44,7 @@ public class Player : MonoBehaviour, IMiteorTrigger
     public bool canDigSolidTiles = false;
     public Animator animator;
     public bool onLeft = true;
+    public UnityEvent OnDestroy;
 
     public bool OnLeft
     {
@@ -170,8 +174,7 @@ public class Player : MonoBehaviour, IMiteorTrigger
 
     public bool OnMetiorTrigger()
     {
-        Debug.LogError("Ты умер");
-        //конец игры
+        OnDestroy.Invoke();
         return true;
     }
     
